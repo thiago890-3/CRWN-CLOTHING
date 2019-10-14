@@ -4,6 +4,31 @@
     flex-direction: column;
     height: 350px;
     align-items: center;
+
+    position: relative;
+
+    &:hover {
+      
+    }
+
+    .custom-button {
+      position: absolute;
+      top: 200px;
+      display: none;
+    }
+
+    .inverted {
+      background-color: black;
+      color: white;
+
+      &:hover {
+        background-color: white;
+        color: black;
+      }
+
+    }
+
+
   
     .image {
       width: 100%;
