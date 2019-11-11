@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Route } from 'react-router-dom'
 import { createStructuredSelector } from 'reselect'
@@ -15,28 +15,22 @@ import WithSpinner from '../../components/with-spinner/with-spinner.component'
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
 const CategoryPageWithSpinner = WithSpinner(CategoryPage)
 
-class ShopPage extends React.Component {
+const ShopPage = ({ fetchCollectionsStart, match, isCollectionsLoaded }) => {
 
-    componentDidMount() {
-        const { fetchCollectionsStart } = this.props
+    useEffect(() => {
         fetchCollectionsStart()
-    }
-
-    render() {
-        const { match, isCollectionsLoaded } = this.props
-
-        return (
-            <div className='shop-page'>
-                <Route exact path={`${match.path}`} render={(props) =>
-                    <CollectionsOverviewWithSpinner isLoading={!isCollectionsLoaded}{...props} />}
-                />
-                <Route path={`${match.path}/:collectionId`} render={(props) =>
-                    <CategoryPageWithSpinner isLoading={!isCollectionsLoaded}{...props} />}
-                />
-            </div>
-        )
-    }
-
+    }, [fetchCollectionsStart])
+    
+    return (
+        <div className='shop-page'>
+            <Route exact path={`${match.path}`} render={(props) =>
+                <CollectionsOverviewWithSpinner isLoading={!isCollectionsLoaded}{...props} />}
+            />
+            <Route path={`${match.path}/:collectionId`} render={(props) =>
+                <CategoryPageWithSpinner isLoading={!isCollectionsLoaded}{...props} />}
+            />
+        </div>
+    )
 }
 
 const mapStateToProps = createStructuredSelector({
